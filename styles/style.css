@@ -1,0 +1,9 @@
+a[role="button"] {
+  padding: 5px 10px;
+}
+
+.delete {
+  color: rgb(217, 74, 74);
+  font-weight: 900;
+  cursor: pointer;
+}

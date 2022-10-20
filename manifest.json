@@ -1,0 +1,17 @@
+{
+	"name": "website-search",
+	"version": "1.0.0",
+	"description": "",
+	"manifest_version": 3,
+	"author": "Akhil Ravindran",
+	"background": {
+		"service_worker": "background.js"
+	},
+	"action": {
+		
+	},
+	"permissions": [
+		"history",
+		"storage"
+	]
+}

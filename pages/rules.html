@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Website Search</title>
+    <link rel="stylesheet" href="../styles/pico.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <script src="../scripts/main.js"></script>
+  </head>
+  <body>
+    <!-- <div>
+      <input id="search-input" />
+      <button id="search-button">Goto</button>
+      <button id="list-button">Search</button>
+    </div> -->
+    <dialog>
+      <article style="width: 80%">
+        <header>
+          <a
+            href="#close"
+            id="close-dialog"
+            aria-label="Close"
+            class="close"
+          ></a>
+          Add Rules
+        </header>
+        <div>
+          <form>
+            <label for="keywords">Keywords</label>
+            <input type="text" id="keywords" placeholder="github" />
+
+            <label for="url">URL</label>
+            <input type="text" id="url" placeholder="github.com" />
+
+            <button id="add-rule-button">Submit</button>
+          </form>
+        </div>
+      </article>
+    </dialog>
+    <nav class="container">
+      <ul>
+        <!-- <li><strong>Brand</strong></li> -->
+      </ul>
+      <ul>
+        <li><a href="/pages/index.html">Home</a></li>
+        <li><a href="/pages/rules.html">Keywords</a></li>
+        <!-- <li><a href="#">Link</a></li> -->
+        <!-- <li><a href="#" role="button">Button</a></li> -->
+      </ul>
+    </nav>
+    <main class="container">
+      <h2>Rules</h2>
+      <div style="text-align: right">
+        <a href="#" role="button" id="add-rule">Add Rule</a>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Keyword</th>
+            <th>URL</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="rules-list"></tbody>
+      </table>
+    </main>
+
+    <script src="../scripts/rules.js"></script>
+  </body>
+</html>

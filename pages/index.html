@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Website Search</title>
+    <link rel="stylesheet" href="../styles/pico.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <script src="../scripts/main.js"></script>
+    <style>
+      div.results-container {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div>
+      <input id="search-input" />
+      <button id="search-button">Goto</button>
+      <button id="list-button">Search</button>
+    </div> -->
+    <nav class="container">
+      <ul>
+        <!-- <li><strong>Brand</strong></li> -->
+      </ul>
+      <ul>
+        <li><a href="/pages/rules.html">Keywords</a></li>
+        <!-- <li><a href="#">Link</a></li> -->
+        <!-- <li><a href="#" role="button">Button</a></li> -->
+      </ul>
+    </nav>
+    <main class="container">
+      <div>
+        <form>
+          <label for="search-input">
+            <input
+              type="search"
+              id="search-input"
+              placeholder="Enter keyword"
+            />
+          </label>
+          <a href="#" id="search-button" role="button">Goto</a>
+          <a href="#" id="list-button" role="button">Search in history</a>
+        </form>
+      </div>
+      <div class="results-container">
+        <h3>Results</h3>
+        <ul id="results"></ul>
+      </div>
+    </main>
+    <script src="../scripts/index.js"></script>
+  </body>
+</html>
