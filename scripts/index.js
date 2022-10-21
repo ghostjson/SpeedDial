@@ -7,41 +7,22 @@ const resultsList = document.querySelector("#results");
 /**
  * Search
  */
-searchButton.addEventListener("click", () => {
+searchButton.addEventListener("click", async () => {
   const query = searchInput.value;
+  let url = null;
 
-  chrome.storage.sync.get(["rules"], (result) => {
-    rules = result["rules"];
-    if (query in rules) {
-      chrome.tabs.create({ url: rules[query] });
-      return;
-    } else {
-      chrome.history.search(
-        {
-          text: query,
-        },
-        (results) => {
-          if (results.length > 0) {
-            const urlParts = results[0].url.split("/");
+  // if the search has in
+  if (query.includes("in") && (await searchInEngine(query))) {
+    url = await searchInEngine(query);
+  } else if (await serachInRules(query)) {
+    // if it is keyword
+    url = await serachInRules(query);
+  } else {
+    // if not a keyword search in recent history if not found, search in google
+    url = await searchInHistory(query);
+  }
 
-            let url = `${urlParts[0]}/`;
-
-            const urlUpto = 2;
-            for (let i = 2; i < 2 + urlUpto; i++) {
-              url += "/" + urlParts[i];
-            }
-
-            chrome.tabs.create({ url });
-            return;
-          } else {
-            chrome.tabs.create({
-              url: `https://www.google.com/search?q=${query}`,
-            });
-          }
-        }
-      );
-    }
-  });
+  chrome.tabs.create({ url });
 });
 
 /**
@@ -69,3 +50,63 @@ listButton.addEventListener("click", () => {
     }
   );
 });
+
+// search in given search engine
+const searchInEngine = async (query) => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.sync.get(["search"], (result) => {
+      const searches = result["search"];
+      Object.keys(searches).forEach((key) => {
+        if (query.includes(key)) {
+          const newQuery = query.replace("in", "").replace(key, "");
+          const url = searches[key].replace("$1", newQuery);
+
+          resolve(url);
+        } else {
+          resolve(false);
+        }
+      });
+    });
+  });
+};
+
+// search in given keywords
+const serachInRules = async (query) => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.sync.get(["rules"], async (result) => {
+      rules = result["rules"];
+      if (query in rules) {
+        resolve(rules[query]);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+};
+
+// search in history or fallback to google
+const searchInHistory = async (query) => {
+  return new Promise((resolve, reject) => {
+    chrome.history.search(
+      {
+        text: query,
+      },
+      (results) => {
+        if (results.length > 0) {
+          const urlParts = results[0].url.split("/");
+
+          let url = `${urlParts[0]}/`;
+
+          const urlUpto = 2;
+          for (let i = 2; i < 2 + urlUpto; i++) {
+            url += "/" + urlParts[i];
+          }
+
+          resolve(url);
+        } else {
+          resolve(`https://www.google.com/search?q=${query}`);
+        }
+      }
+    );
+  });
+};

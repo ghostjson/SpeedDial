@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Website Search</title>
+    <link rel="stylesheet" href="../styles/pico.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <script src="../scripts/main.js"></script>
+    <style>
+      .delete {
+        margin-left: auto;
+        margin-right: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div>
+      <input id="search-input" />
+      <button id="search-button">Goto</button>
+      <button id="list-button">Search</button>
+    </div> -->
+
+    <nav class="container">
+      <ul>
+        <!-- <li><strong>Brand</strong></li> -->
+      </ul>
+      <ul>
+        <li><a href="/pages/index.html">Home</a></li>
+        <li><a href="/pages/rules.html">Keywords</a></li>
+        <li><a href="/pages/rules.html">Settings</a></li>
+        <!-- <li><a href="#">Link</a></li> -->
+        <!-- <li><a href="#" role="button">Button</a></li> -->
+      </ul>
+    </nav>
+    <main class="container">
+      <h2>Settings</h2>
+      <article>
+        <details>
+          <summary>Search Engines</summary>
+          <div>
+            <form>
+              <h4>Add new search</h4>
+              <label for="email">Search Name</label>
+              <input type="text" id="search-engine-name" placeholder="google" />
+              <label for="email">Search URL</label>
+              <input
+                type="text"
+                id="search-engine-url"
+                placeholder="https://google.com/search?q=$1"
+              />
+
+              <button type="button" id="search-engine-button">Submit</button>
+            </form>
+
+            <ul id="search-list">
+              <li>google - https://google.com/search?q=$1</li>
+            </ul>
+          </div>
+        </details>
+      </article>
+    </main>
+
+    <script src="../scripts/settings.js"></script>
+  </body>
+</html>
