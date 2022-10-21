@@ -16,7 +16,6 @@ searchEngineButton.addEventListener("click", () => {
   chrome.storage.sync.get(["search"], (item) => {
     const search = item["search"] || {};
     search[name] = url;
-    console.log(search);
     chrome.storage.sync.set({ search: search });
 
     updateSearchList(search);

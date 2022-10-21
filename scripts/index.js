@@ -15,9 +15,11 @@ searchButton.addEventListener("click", async () => {
   if (query.includes("in") && (await searchInEngine(query))) {
     url = await searchInEngine(query);
   } else if (await serachInRules(query)) {
+    console.log("rules");
     // if it is keyword
     url = await serachInRules(query);
   } else {
+    console.log("history");
     // if not a keyword search in recent history if not found, search in google
     url = await searchInHistory(query);
   }
@@ -40,7 +42,6 @@ listButton.addEventListener("click", () => {
     (results) => {
       if (results.length > 0) {
         results.forEach((result) => {
-          console.log(result);
           resultsList.innerHTML += `<li>
 					<a href='${result.url}'>${result.title}</a>	
 				</li>`;
@@ -51,21 +52,29 @@ listButton.addEventListener("click", () => {
   );
 });
 
+// on load
+window.onload = () => {
+  // if enter key is pressed
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      searchButton.click();
+    }
+  });
+};
+
 // search in given search engine
 const searchInEngine = async (query) => {
   return new Promise((resolve, reject) => {
+    let url = null;
     chrome.storage.sync.get(["search"], (result) => {
       const searches = result["search"];
       Object.keys(searches).forEach((key) => {
         if (query.includes(key)) {
           const newQuery = query.replace("in", "").replace(key, "");
-          const url = searches[key].replace("$1", newQuery);
-
-          resolve(url);
-        } else {
-          resolve(false);
+          url = searches[key].replace("$1", newQuery);
         }
       });
+      url ? resolve(url) : resolve(false);
     });
   });
 };
