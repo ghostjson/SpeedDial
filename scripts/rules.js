@@ -18,13 +18,16 @@ addRuleSubmit.addEventListener("click", () => {
   const keywords = document.querySelector("#keywords").value;
   const url = document.querySelector("#url").value;
 
-  rules[keywords] = url;
+  chrome.storage.sync.get(["rules"], (result) => {
+    const rules = result["rules"];
+    rules[keywords] = url;
 
-  chrome.storage.sync.set({ rules: rules });
+    chrome.storage.sync.set({ rules: rules });
 
-  document.querySelector("dialog").removeAttribute("open");
+    document.querySelector("dialog").removeAttribute("open");
 
-  updateRulesList();
+    updateRulesList();
+  });
 });
 
 // load rules
@@ -35,25 +38,29 @@ chrome.storage.sync.get(["rules"], (item) => {
 // list all rules
 const updateRulesList = (rules) => {
   rulesList.innerHTML = "";
-  Object.keys(rules).forEach((keyword) => {
-    rulesList.innerHTML += `<tr>
+
+  chrome.storage.sync.get(["rules"], (result) => {
+    const rules = result["rules"];
+    Object.keys(rules).forEach((keyword) => {
+      rulesList.innerHTML += `<tr>
             <td>${keyword}</td>
             <td>${rules[keyword]}</td>
             <td class='delete' id='delete-${keyword}' keyword=${keyword}>
               X
             </td>
           </tr>`;
-  });
+    });
 
-  Object.keys(rules).forEach((keyword) => {
-    document
-      .querySelector(`#delete-${keyword}`)
-      .addEventListener("click", function () {
-        const keyword = this.getAttribute("keyword");
-        delete rules[keyword];
+    Object.keys(rules).forEach((keyword) => {
+      document
+        .querySelector(`#delete-${keyword}`)
+        .addEventListener("click", function () {
+          const keyword = this.getAttribute("keyword");
+          delete rules[keyword];
 
-        chrome.storage.sync.set({ rules: rules });
-        updateRulesList();
-      });
+          chrome.storage.sync.set({ rules: rules });
+          updateRulesList();
+        });
+    });
   });
 };
