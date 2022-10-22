@@ -24,3 +24,28 @@ a[role="button"] {
 .logo:hover {
   transform: rotate(-4deg);
 }
+
+.github-icon {
+  background-color: black;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.5s;
+}
+
+.github-icon:hover {
+  border: 2px solid white;
+}
+
+.github-icon svg {
+  width: 30px;
+}
