@@ -1,3 +1,8 @@
+@font-face {
+  font-family: logoFont;
+  src: url('./Fasthand-Regular.ttf')
+}
+
 a[role="button"] {
   padding: 5px 10px;
 }
@@ -6,4 +11,16 @@ a[role="button"] {
   color: rgb(217, 74, 74);
   font-weight: 900;
   cursor: pointer;
+}
+
+.logo {
+  font-family: logoFont; 
+  text-decoration: underline;
+  transform: rotate(-5deg);
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.logo:hover {
+  transform: rotate(-4deg);
 }

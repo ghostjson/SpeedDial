@@ -15,16 +15,14 @@ searchButton.addEventListener("click", async () => {
   if (query.includes("in") && (await searchInEngine(query))) {
     url = await searchInEngine(query);
   } else if (await serachInRules(query)) {
-    console.log("rules");
     // if it is keyword
     url = await serachInRules(query);
   } else {
-    console.log("history");
     // if not a keyword search in recent history if not found, search in google
     url = await searchInHistory(query);
   }
 
-  chrome.tabs.create({ url });
+  chrome.tabs.update({ url });
 });
 
 /**
@@ -83,6 +81,7 @@ const searchInEngine = async (query) => {
 const serachInRules = async (query) => {
   return new Promise((resolve, reject) => {
     chrome.storage.sync.get(["rules"], async (result) => {
+      console.log(result);
       rules = result["rules"];
       if (query in rules) {
         resolve(rules[query]);

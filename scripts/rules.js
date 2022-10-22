@@ -19,7 +19,7 @@ addRuleSubmit.addEventListener("click", () => {
   const url = document.querySelector("#url").value;
 
   chrome.storage.sync.get(["rules"], (result) => {
-    const rules = result["rules"];
+    const rules = result["rules"] || {};
     rules[keywords] = url;
 
     chrome.storage.sync.set({ rules: rules });
