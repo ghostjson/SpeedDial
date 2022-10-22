@@ -13,5 +13,11 @@
 	"permissions": [
 		"history",
 		"storage"
-	]
+	],
+	"commands": {
+		"inject-script": {
+			"suggested_key": "Ctrl+Shift+K",
+			"description": "Open search"
+		}
+	}
 }
