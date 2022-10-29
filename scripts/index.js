@@ -11,8 +11,14 @@ searchButton.addEventListener("click", async () => {
   const query = searchInput.value;
   let url = null;
 
+  // if the search has in history
+  if (query.includes("in") && query.includes("history")) {
+    const q = query.replace("in", "").replace("history", "");
+    console.log(q);
+    searchInHistory(q);
+  }
   // if the search has in
-  if (query.includes("in") && (await searchInEngine(query))) {
+  else if (query.includes("in") && (await searchInEngine(query))) {
     url = await searchInEngine(query);
   } else if (await serachInRules(query)) {
     // if it is keyword
@@ -30,30 +36,14 @@ searchButton.addEventListener("click", async () => {
  */
 listButton.addEventListener("click", () => {
   const query = searchInput.value;
-  resultsContainer.style.display = "block";
-  resultsList.innerHTML = "";
 
-  chrome.history.search(
-    {
-      text: query,
-    },
-    (results) => {
-      if (results.length > 0) {
-        results.forEach((result) => {
-          resultsList.innerHTML += `<li>
-					<a href='${result.url}'>${result.title}</a>	
-				</li>`;
-        });
-      } else {
-      }
-    }
-  );
+  searchInHistory(query);
 });
 
 // on load
 window.onload = () => {
   // if enter key is pressed
-  searchInput.addEventListener("keydown", (event) => {
+  window.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       searchButton.click();
     }
@@ -97,4 +87,26 @@ const searchInGoogle = async (query) => {
   return new Promise((resolve, reject) => {
     resolve(`https://www.google.com/search?q=${query}`);
   });
+};
+
+const searchInHistory = async (query) => {
+  resultsContainer.style.display = "block";
+  resultsList.innerHTML = "";
+  chrome.history.search(
+    {
+      text: query.trim(),
+    },
+    (results) => {
+      console.log(results);
+      if (results.length > 0) {
+        results.forEach((result) => {
+          resultsList.innerHTML += `<li>
+					<a href='${result.url}'>${result.title}</a>	
+				</li>`;
+        });
+      } else {
+        resultsList.innerHTML += "No results found";
+      }
+    }
+  );
 };

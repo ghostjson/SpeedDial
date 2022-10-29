@@ -20,8 +20,9 @@
         <!-- <li><strong>Brand</strong></li> -->
       </ul>
       <ul>
-        <li><a href="/pages/rules.html">Keywords</a></li>
-        <li><a href="/pages/settings.html">Settings</a></li>
+        <li><a href="/pages/rules.html" data-placement="bottom" data-tooltip="Press 'Alt + 2'" id="nav-keywords">Keywords</a></li>
+
+        <li><a href="/pages/settings.html" data-placement="bottom" data-tooltip="Press 'Alt + 3'" id="nav-settings">Settings</a></li>
       </ul>
     </nav>
     <main class="container">
@@ -31,9 +32,9 @@
           <input type="search" id="search-input" placeholder="Enter keyword" autofocus/>
         </label>
         <a href="#" id="search-button" role="button" style="margin-left: 20px"
-          >Goto</a
+           data-tooltip="Press Enter">Goto</a
         >
-        <a href="#" id="list-button" role="button">Search in history</a>
+        <a href="#" id="list-button" role="button" data-tooltip="Append 'in history' with search">Search in history</a>
       </div>
       <div class="results-container">
         <h3>Results</h3>
